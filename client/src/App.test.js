@@ -1,9 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {render, waitForElement} from '@testing-library/react';
 import App from './App';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
+
+test('Checks that data from api is being mapped over correctly', async() => {
+     const app = render(<App />);
+     const elem1 = await waitForElement(() => app.getByTestId('player-name1'))
+     const elem2 = await waitForElement(() => app.getByTestId('country-name3'))
+
+    expect(elem1.textContent).toBe('Megan Rapinoe');
+    expect(elem2.textContent).toBe('United States');
+ 
+})
